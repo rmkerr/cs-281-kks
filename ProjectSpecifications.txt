@@ -1,0 +1,28 @@
+Project Specifications:
+Structure:
+Classes: Task, Scheduler, Logger, Loader, Strategy(abstract base), EDFStrategy, RRPriorityStrategy, SJFStrategy
+1. Task:
+a. Keeps track of 
+i. Deadline
+ii. Time Remaining
+iii. If finished
+iv. Time spawned
+v. Time finished
+vi. Etc.
+b. Can be updated by Scheduler, update() function
+2. Scheduler
+a. Simulates time passing and updates tasks accordingly
+b. Sorts queued tasks
+c. Sends finished tasks to Logger
+d. Manages queue when new Task is loaded
+3. Logger
+a. Maintains an array of finished Tasks
+b. When simulation is done, shows statistics
+4. Loader
+a. Loads predefined tasks to Scheduler
+b. Will read from csv files to load specified Tasks 
+5. Schedule Strategy
+a. Multiple policies to be represented with the strategy pattern.
+
+Proposed Schedule:
+Task, Scheduler, Loader, Logger should be completed by April 10th. Strategies will be implemented by April 17th. 
