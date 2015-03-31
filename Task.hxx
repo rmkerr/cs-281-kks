@@ -8,6 +8,14 @@ class Task
         Task();
         Task(int length, int priority = 0, int timeSpawned, int time);
         virtual ~Task();
+
+        /**
+         *  decrements time remaining, checks finished, could use schedule strategy to update priority?
+         *  @return finished post update
+         */
+        bool updateTask(int allowedRunTime);
+
+        //Accessors
         int getDeadline();
         int getTimeRemaining();
         int getPriority();
