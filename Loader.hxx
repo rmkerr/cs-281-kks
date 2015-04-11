@@ -6,12 +6,14 @@
 class Loader
 {
     public:
-        Loader();
+
+        Loader(std::queue<Task*>*);
         ~Loader();
-        addTask(Task* task);
+        void addTask(Task* task);
+
 
     private:
-        std::queue<Task>* taskQueue;
+        std::list<Task*> taskQueue;
 
 };
 

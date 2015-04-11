@@ -8,10 +8,11 @@ class Logger
     public:
         Logger();
         ~Logger();
-        readTask(Task* task);
+        void addTask(Task* task);
+        int[] readTasks();
 
     private:
-        std::queue<Task>* taskQueue;
+        std::queue<Task>* taskList;
 
 };
 
