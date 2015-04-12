@@ -1,9 +1,14 @@
 #include "Logger.hxx"
 #include <iostream>
 #include <string>
+#include <algorithm>
 
 //Constructs an empty list of task pointers
-Logger::~Logger() : taskList() {}
+Logger::Logger() : taskList() {}
+
+
+Logger::~Logger() {}
+
 
 //Places new task pointer
 void Logger::addTask(Task* task) {
