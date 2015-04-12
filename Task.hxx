@@ -6,7 +6,7 @@ class Task
 {
     public:
         Task();
-        Task(int length, int priority = 0, int timeSpawned, int time);
+        Task(int length, int timeSpawned, int time, int priority = 0);
         virtual ~Task();
 
         /**
@@ -20,12 +20,15 @@ class Task
         int getTimeRemaining();
         int getPriority();
         int getSpawnTime();
+        int getStartTime();
         int getTimeFinished();
         bool getFinished();
 
         void setDeadline(int);
         void setTimeRemaining(int);
         void setPriority(int);
+        void setSpawnTime(int);
+        void setTimeStarted(int);
         void setTimeFinished(int);
         void setFinished(bool)
 
@@ -34,6 +37,7 @@ class Task
         int timeRemaining_;
         int priority_;
         int spawnTime_;
+        int timeStarted_;
         int timeFinished_;
         bool finished_;
 };
