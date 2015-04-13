@@ -6,14 +6,14 @@ class Task
 {
     public:
         Task();
-        Task(int length, int timeSpawned, int time, int priority = 0);
-        virtual ~Task();
+        Task(int length, int timeSpawned, int deadline, int priority = 0);
+        ~Task();
 
         /**
          *  decrements time remaining, checks finished, could use schedule strategy to update priority?
-         *  @return finished post update
+         *  @return finished, post update
          */
-        bool updateTask(int allowedRunTime);
+        bool updateTask(int time);
 
         //Accessors
         int getDeadline();
@@ -23,6 +23,7 @@ class Task
         int getStartTime();
         int getTimeFinished();
         bool getFinished();
+        bool getFirstRun();
 
         void setDeadline(int);
         void setTimeRemaining(int);
@@ -30,7 +31,8 @@ class Task
         void setSpawnTime(int);
         void setTimeStarted(int);
         void setTimeFinished(int);
-        void setFinished(bool)
+        void setFinished(bool);
+        void setFirstRun();
 
     private:
         int deadline_;
@@ -40,6 +42,7 @@ class Task
         int timeStarted_;
         int timeFinished_;
         bool finished_;
+        bool firstRun_;
 };
 
 #endif // TASK_H
