@@ -15,20 +15,20 @@ void Logger::addTask(Task* task) {
     taskList.emplace_back(task);
 }
 
-int[] Logger::readTasks() {
-    int toReturn [3]; //For average turnaround time[0] and response time[1] and if all finished before deadline [2]
+int* Logger::readTasks() {
+    int* toReturn = new int[3]; //For average turnaround time[0] and response time[1] and if all finished before deadline [2]
     int count = 0;
     int sumTurnaroundTime = 0;
     int sumResponseTime = 0;
     int tasksFinished = 1; //will be set to 0 if one is not finished, depending on implementation may not be necessary
 
 
-    if(taskList.emp > 0){
+    if(taskList.size() > 0){
         std::for_each(taskList.begin(), taskList.end(), [&](Task* ptr) {
             //moving through list, send info about individual to console
             //track average average throughput, response time, and finish before deadline info to array
 
-            if(!ptr->getFinsihed()) {
+            if(!ptr->getFinished()) {
                 tasksFinished = 0;
             }
 
@@ -63,5 +63,5 @@ int[] Logger::readTasks() {
         std::cout << "Task list is empty" << std::endl;
     }
 
-
+    return toReturn;
 }

@@ -13,14 +13,14 @@ class Task
          *  decrements time remaining, checks finished, could use schedule strategy to update priority?
          *  @return finished, post update
          */
-        bool updateTask(int time);
+        bool updateTask(int curTime);
 
         //Accessors
         int getDeadline();
         int getTimeRemaining();
         int getPriority();
         int getSpawnTime();
-        int getStartTime();
+        int getTimeStarted();
         int getTimeFinished();
         bool getFinished();
         bool getFirstRun();
@@ -28,7 +28,7 @@ class Task
         void setDeadline(int);
         void setTimeRemaining(int);
         void setPriority(int);
-        void setSpawnTime(int);
+        void setTimeSpawned(int);
         void setTimeStarted(int);
         void setTimeFinished(int);
         void setFinished(bool);

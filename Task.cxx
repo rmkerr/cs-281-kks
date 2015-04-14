@@ -2,22 +2,23 @@
 #include "Task.hxx"
 
 Task::Task() : deadline_(), timeRemaining_(), priority_(), spawnTime_(),
-    timeStarted_(), timeFinished_(), finished(false), firstRun(false) {}
+    timeStarted_(), timeFinished_(), finished_(false), firstRun_(false) {}
 
 Task::Task(int length, int timeSpawned, int deadline, int priority) :
     deadline_(deadline), timeRemaining_(length), priority_(priority),
-    spawnTime_(timeSpawned), timeStarted_(), timeFinished_(), finished(false), firstRun(false) {}
+    spawnTime_(timeSpawned), timeStarted_(), timeFinished_(), finished_(false), firstRun_(false) {}
 
 Task::~Task() {}
 
-bool Task::updateTask(int time, int curTime) {
+bool Task::updateTask(int curTime) {
     if(!getFirstRun()){
         setFirstRun();
         setTimeStarted(curTime);
     }
 
-    setTimeRemaining(getTimeRemaining() - time);
-    if(getTimeRemaining() <= 0) {
+    setTimeRemaining(getTimeRemaining() - 1);
+    if(getTimeRemaining() == 0) {
+        setTimeFinished(curTime + 1);
         setFinished(true);
     }
 

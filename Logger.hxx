@@ -2,6 +2,7 @@
 #define LOGGER_H
 
 #include "Task.hxx"
+#include <list>
 
 class Logger
 {
@@ -9,10 +10,10 @@ class Logger
         Logger();
         ~Logger();
         void addTask(Task* task);
-        int[] readTasks();
+        int* readTasks();
 
     private:
-        std::queue<Task>* taskList;
+        std::list<Task*> taskList;
 
 };
 
