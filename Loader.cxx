@@ -1,5 +1,6 @@
 #include <fstream>
 #include <algorithm>
+#include <iostream>
 
 #include "Loader.hxx"
 
@@ -11,8 +12,7 @@ Loader::Loader(std::queue<Task*>* taskList, std::string fileName) :
     //start time, length, deadline, priority
     unsigned long start, length, deadline, priority;
 
-    while(inFile) {
-        inFile>>start;
+    while(inFile>>start) {
         inFile>>length;
         inFile>>deadline;
         inFile>>priority;
@@ -28,6 +28,7 @@ Loader::~Loader() {
 }
 
 void Loader::update(int time) {//We should change this interface, I'm just not sure how
+    std::cout<<unloadedTasks.size()<<std::endl;
     if(unloadedTasks.size()) {
         while((*unloadedTasks.begin())->getSpawnTime() <= time){
             loadedTasks->push(*unloadedTasks.begin());
