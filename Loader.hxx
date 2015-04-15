@@ -6,14 +6,14 @@
 class Loader
 {
     public:
-
-        Loader(std::queue<Task*>*);
+        Loader(std::queue<Task*>*, std::string fileName);
         ~Loader();
-        void addTask(Task* task);
 
+        void update();
 
     private:
-        std::list<Task*> taskQueue;
+        std::queue<Task*>* loadedTasks;
+        std::list<Task*>   unloadedTasks;
 
 };
 
