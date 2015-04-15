@@ -1,5 +1,7 @@
 #include <ifstream>
 #include <algorithm>
+#include <list>
+#include <queue>
 
 Loader::Loader(std::queue<Task*>* taskList, std::string fileName) :
                                     loadedTasks(taskList) {
