@@ -8,10 +8,14 @@
 class Scheduler
 {
     public:
-        Scheduler(Schedule*,size_t cores) : schedule(Schedule) {};
+        Scheduler(size_t cores) : maxSimultaniousProcesses(cores) {};
+
         ~Scheduler();
 
         std::queue<Task>* getTaskQueue();
+
+        //Set the schedule to be used
+        void setSchedule(Schedule* sch) {
 
         //Increment time passed, unload+log finished tasks
         void updateTasks(int timestep = 1);
