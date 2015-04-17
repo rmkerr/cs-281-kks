@@ -16,17 +16,20 @@ void Scheduler::setSchedule(Schedule* sch) {
 
 //Increment time passed, unload+log finished tasks
 void Scheduler::updateTasks(int timestep = 1) {
-    schedule->reorder();
-    for(int i = 0; i < maxSimult; )
-    std::for_each(taskQueue.begin(),taskQueue.end(),[](Task* x))
+    for(int j = 0; j < timestep;++j) {
+        sortQueue();
+        auto task = taskQueue.begin();
+        for(int i = 0; i < maxSimult && i < taskQueue.size();++i){
+            (*task)->updateTask(time);
+            task++;
+        }
+        taskQueue.remove_if([](Task* a){return a.getFinished();});
+    }
 }
 
 //Uses the Schedule strategy to order tasks
-void sortQueue();
-
+void sortQueue() {
+    schedule->reorder();
+}
 
 void logTask();
-
-size_t maxSimultaniousProcesses;//# of tasks to update simulataniously
-std::list<Task> taskQueue;
-Schedule* schedule;
