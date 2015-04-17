@@ -4,7 +4,7 @@
 
 #include "Loader.hxx"
 
-Loader::Loader(std::queue<Task*>* taskList, std::string fileName) :
+Loader::Loader(std::list<Task*>* taskList, std::string fileName) :
                                     loadedTasks(taskList) {
     std::ifstream inFile;
     inFile.open(fileName);

@@ -4,19 +4,18 @@
 #include "Task.hxx"
 
 #include <list>
-#include <queue>
 #include <string>
 
 class Loader
 {
     public:
-        Loader(std::queue<Task*>*, std::string fileName);
+        Loader(std::list<Task*>*, std::string fileName);
         ~Loader();
 
         void update(int time);
 
     private:
-        std::queue<Task*>* loadedTasks;
+        std::list<Task*>* loadedTasks;
         std::list<Task*>   unloadedTasks;
 
 };

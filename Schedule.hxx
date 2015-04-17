@@ -1,7 +1,7 @@
 #ifndef SCHEDULE_H
 #define SCHEDULE_H
 
-#include <queue>
+#include <list>
 
 /**
  * Abstract base class to allow definition of multiple policies
@@ -11,13 +11,13 @@
 class Schedule
 {
     public:
-        Schedule(std::queue<Task*>);
+        Schedule(std::list<Task*>);
         virtual ~Schedule();
 
         virtual void reorder();
 
     private:
-        std::queue<Task*> taskList;
+        std::list<Task*> taskList;
 };
 
 #endif

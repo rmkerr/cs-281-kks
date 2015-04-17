@@ -5,7 +5,7 @@ Scheduler::~Scheduler() {
     std::for_each(taskQueue.begin().taskQueue.end(),[](Task*x){delete x;});
 }
 
-std::queue<Task>* Scheduler::getTaskQueue(){
+std::list<Task>* Scheduler::getTaskQueue(){
     return &taskQueue;
 }
 
@@ -16,6 +16,7 @@ void Scheduler::setSchedule(Schedule* sch) {
 
 //Increment time passed, unload+log finished tasks
 void Scheduler::updateTasks(int timestep = 1) {
+    schedule->reorder();
 
 }
 
@@ -23,9 +24,8 @@ void Scheduler::updateTasks(int timestep = 1) {
 void sortQueue();
 
 
-private:
 void logTask();
 
 size_t maxSimultaniousProcesses;//# of tasks to update simulataniously
-std::queue<Task> taskQueue;
+std::list<Task> taskQueue;
 Schedule* schedule;

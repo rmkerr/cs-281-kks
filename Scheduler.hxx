@@ -12,7 +12,7 @@ class Scheduler
 
         ~Scheduler();
 
-        std::queue<Task>* getTaskQueue();
+        std::list<Task>* getTaskQueue();
 
         //Set the schedule to be used
         void setSchedule(Schedule* sch) {
@@ -28,7 +28,7 @@ class Scheduler
         void logTask();
 
         size_t maxSimultaniousProcesses;//# of tasks to update simulataniously
-        std::queue<Task> taskQueue;
+        std::list<Task> taskQueue;
         Schedule* schedule;
 };
 
