@@ -8,7 +8,7 @@
 class Scheduler
 {
     public:
-        Scheduler(size_t cores) : maxSimultaniousProcesses(cores) {};
+        Scheduler(size_t cores) : maxSimult(cores), time(0) {};
 
         ~Scheduler();
 
@@ -27,7 +27,8 @@ class Scheduler
     private:
         void logTask();
 
-        size_t maxSimultaniousProcesses;//# of tasks to update simulataniously
+        size_t maxSimult;//# of tasks to update simulataniously
+        unsigned long time;
         std::list<Task> taskQueue;
         Schedule* schedule;
 };

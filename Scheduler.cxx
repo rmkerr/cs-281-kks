@@ -17,7 +17,8 @@ void Scheduler::setSchedule(Schedule* sch) {
 //Increment time passed, unload+log finished tasks
 void Scheduler::updateTasks(int timestep = 1) {
     schedule->reorder();
-
+    for(int i = 0; i < maxSimult; )
+    std::for_each(taskQueue.begin(),taskQueue.end(),[](Task* x))
 }
 
 //Uses the Schedule strategy to order tasks
