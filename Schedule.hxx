@@ -11,13 +11,13 @@
 class Schedule
 {
     public:
-        Schedule(std::list<Task*>);
+        Schedule(std::list<Task*>*);
         virtual ~Schedule();
 
         virtual void reorder();
 
     private:
-        std::list<Task*> taskList;
+        std::list<Task*>* taskList;
 };
 
 #endif
