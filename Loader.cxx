@@ -31,7 +31,7 @@ void Loader::update(int time) {//We should change this interface, I'm just not s
     std::cout<<unloadedTasks.size()<<std::endl;
     if(unloadedTasks.size()) {
         while((*unloadedTasks.begin())->getSpawnTime() <= time){
-            (*unloadedTasks.begin())->setSpawnTime(time);
+            (*unloadedTasks.begin())->setTimeStarted(time);
             loadedTasks->push_back(*unloadedTasks.begin());
             unloadedTasks.pop_front();
         }

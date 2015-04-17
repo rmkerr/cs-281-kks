@@ -1,8 +1,8 @@
 #include <algorithm>
-#include "Schedule.cxx"
+#include "Schedule.hxx"
 
 Schedule::Schedule(std::list<Task*> tasks) : taskList(tasks) {};
 
 Schedule::~Schedule() {}//The scheduler cleans up tasks
 
-Schedule::reorder(){}//Does nothing. FIFO
+void Schedule::reorder(){}//Does nothing. FIFO

@@ -2,7 +2,7 @@
 #define SCHEDULE_H
 
 #include <list>
-
+#include "Task.hxx"
 /**
  * Abstract base class to allow definition of multiple policies
  * OR it could not be abstract and just function as FIFO

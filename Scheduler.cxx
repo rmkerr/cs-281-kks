@@ -1,11 +1,11 @@
-#include "Scheduler"
+#include "Scheduler.hxx"
 #include <algorithm>
 
 Scheduler::~Scheduler() {
-    std::for_each(taskQueue.begin().taskQueue.end(),[](Task*x){delete x;});
+    std::for_each(taskQueue.begin(),taskQueue.end(),[](Task*x){delete x;});
 }
 
-std::list<Task>* Scheduler::getTaskQueue(){
+std::list<Task*>* Scheduler::getTaskQueue(){
     return &taskQueue;
 }
 
@@ -15,21 +15,21 @@ void Scheduler::setSchedule(Schedule* sch) {
 }
 
 //Increment time passed, unload+log finished tasks
-void Scheduler::updateTasks(int timestep = 1) {
+void Scheduler::updateTasks(int timestep) {
     for(int j = 0; j < timestep;++j) {
         sortQueue();
-        auto task = taskQueue.begin();
-        for(int i = 0; i < maxSimult && i < taskQueue.size();++i){
+        std::list<Task*>::const_iterator task = taskQueue.begin();
+        for(uint i = 0; i < maxSimult && i < taskQueue.size();++i){
             (*task)->updateTask(time);
             task++;
         }
-        taskQueue.remove_if([](Task* a){return a.getFinished();});
+        taskQueue.remove_if([](Task* a){return a->getFinished();});
     }
 }
 
 //Uses the Schedule strategy to order tasks
-void sortQueue() {
+void Scheduler::sortQueue() {
     schedule->reorder();
 }
 
-void logTask();
+void Scheduler::logTask() {};

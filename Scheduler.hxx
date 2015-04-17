@@ -8,14 +8,14 @@
 class Scheduler
 {
     public:
-        Scheduler(size_t cores) : maxSimult(cores), time(0) {};
+        Scheduler(unsigned int cores) : maxSimult(cores), time(0) {};
 
         ~Scheduler();
 
-        std::list<Task>* getTaskQueue();
+        std::list<Task*>* getTaskQueue();
 
         //Set the schedule to be used
-        void setSchedule(Schedule* sch) {
+        void setSchedule(Schedule* sch);
 
         //Increment time passed, unload+log finished tasks
         void updateTasks(int timestep = 1);
@@ -27,9 +27,9 @@ class Scheduler
     private:
         void logTask();
 
-        size_t maxSimult;//# of tasks to update simulataniously
+        unsigned int maxSimult;//# of tasks to update simulataniously
         unsigned long time;
-        std::list<Task> taskQueue;
+        std::list<Task*> taskQueue;
         Schedule* schedule;
 };
 
