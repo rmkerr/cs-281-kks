@@ -3,8 +3,6 @@
 
 Schedule::Schedule(std::queue<Task*> tasks) : taskList(tasks) {};
 
-Schedule::~Schedule() {
-    std::for_each(taskList.begin().taskList.end(),[Task* x](delete x;));
-}
+Schedule::~Schedule() {}//The scheduler cleans up tasks
 
 Schedule::reorder(){}//Does nothing. FIFO

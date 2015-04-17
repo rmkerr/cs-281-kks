@@ -8,10 +8,10 @@
 class Scheduler
 {
     public:
-        Scheduler(Schedule*) : schedule(Schedule) {};
+        Scheduler(Schedule*,size_t cores) : schedule(Schedule) {};
         ~Scheduler();
 
-        std::queue<Task> getTaskQueue();
+        std::queue<Task>* getTaskQueue();
 
         //Increment time passed, unload+log finished tasks
         void updateTasks(int timestep = 1);
