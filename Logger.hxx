@@ -10,7 +10,7 @@ class Logger
         Logger();
         ~Logger();
         void addTask(Task* task);
-        int* readTasks();
+        void readTasks();
 
     private:
         std::list<Task*> taskList;

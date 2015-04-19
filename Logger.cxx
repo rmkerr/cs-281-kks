@@ -15,8 +15,8 @@ void Logger::addTask(Task* task) {
     taskList.emplace_back(task);
 }
 
-int* Logger::readTasks() {
-    int* toReturn = new int[3]; //For average turnaround time[0] and response time[1] and if all finished before deadline [2]
+void Logger::readTasks() {
+    int stats[3]; //For average turnaround time[0] and response time[1] and if all finished before deadline [2]
     int count = 0;
     int sumTurnaroundTime = 0;
     int sumResponseTime = 0;
@@ -55,13 +55,18 @@ int* Logger::readTasks() {
         int averageTurnaroundTime = sumTurnaroundTime/count;
         int averageResponseTime = sumResponseTime/count;
 
-        toReturn[0] = averageTurnaroundTime;
-        toReturn[1] = averageResponseTime;
-        toReturn[2] = tasksFinished;
+        stats[0] = averageTurnaroundTime;
+        stats[1] = averageResponseTime;
+        stats[2] = tasksFinished;
+
+        std::cout << "Average turnaround time: " + std::to_string(stats[0]) << std::endl;
+        std::cout << "Average response time: " + std::to_string(stats[1]) << std::endl;
+        if(stats[2] == 0) {
+            std::cout << "All tasks finished" << std::endl;
+        }
 
     }else {
         std::cout << "Task list is empty" << std::endl;
     }
 
-    return toReturn;
 }
