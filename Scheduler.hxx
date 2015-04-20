@@ -8,7 +8,7 @@
 class Scheduler
 {
     public:
-        Scheduler(unsigned int cores) : maxSimult(cores), time(0) {};
+        Scheduler(unsigned int cores) : maxSimult(cores), time(0), logger() {};
 
         ~Scheduler();
 
@@ -25,12 +25,13 @@ class Scheduler
 
 
     private:
-        void logTask();
+        void logTask(Task* task);
 
-        unsigned int maxSimult;//# of tasks to update simulataniously
+        unsigned int maxSimult;//# of tasks to update simultaneously
         unsigned long time;
         std::list<Task*> taskQueue;
         Schedule* schedule;
+        Logger logger;
 };
 
 #endif // SCHEDULER_H

@@ -7,7 +7,10 @@
 Logger::Logger() : taskList() {}
 
 
-Logger::~Logger() {}
+Logger::~Logger() {
+
+
+}
 
 
 //Places new task pointer

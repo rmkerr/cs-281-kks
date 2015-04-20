@@ -23,7 +23,14 @@ void Scheduler::updateTasks(int timestep) {
             (*task)->updateTask(time);
             task++;
         }
-        taskQueue.remove_if([](Task* a){return a->getFinished();});
+        taskQueue.remove_if([&](Task* a){
+            //adds Task to Logger queue if finished, then is removed from taskQueue.
+            if(a->getFinished()){
+                logTask(a);
+            }
+
+            return a->getFinished();
+        });
     }
 }
 
@@ -32,4 +39,6 @@ void Scheduler::sortQueue() {
     schedule->reorder();
 }
 
-void Scheduler::logTask() {};
+void Scheduler::logTask(Task* task) {
+    logger.addTask(task);
+}
