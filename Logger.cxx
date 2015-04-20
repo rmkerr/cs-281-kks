@@ -8,8 +8,6 @@ Logger::Logger() : taskList() {}
 
 
 Logger::~Logger() {
-
-
 }
 
 

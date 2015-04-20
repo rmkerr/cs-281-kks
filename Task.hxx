@@ -6,7 +6,7 @@ class Task
 {
     public:
         Task();
-        Task(int length, int timeSpawned, int deadline, int priority = 0);
+        Task(int length, int timeSpawned, int deadline, int priority = 0, int blockPeriod = 0, int blockLength = 0);
         ~Task();
 
         /**
@@ -24,6 +24,9 @@ class Task
         int getTimeFinished();
         bool getFinished();
         bool getFirstRun();
+        int getBlockPeriod();
+        int getBlockLength();
+
 
         void setDeadline(int);
         void setTimeRemaining(int);
@@ -33,6 +36,8 @@ class Task
         void setTimeFinished(int);
         void setFinished(bool);
         void setFirstRun();
+        void setBlockPeriod(int);
+        void setBlockLength(int);
 
     private:
         int deadline_;
@@ -43,6 +48,9 @@ class Task
         int timeFinished_;
         bool finished_;
         bool firstRun_;
+        int blockPeriod_;
+        int lengthBlock_;
+
 };
 
 #endif // TASK_H

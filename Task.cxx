@@ -1,30 +1,51 @@
-
+#include <iostream>
 #include "Task.hxx"
 
 Task::Task() : deadline_(), timeRemaining_(), priority_(), spawnTime_(),
-    timeStarted_(), timeFinished_(), finished_(false), firstRun_(false) {}
+    timeStarted_(), timeFinished_(), finished_(false), firstRun_(false), blockPeriod_(), lengthBlock_(0) {}
 
-Task::Task(int length, int timeSpawned, int deadline, int priority) :
+Task::Task(int length, int timeSpawned, int deadline, int priority, int blockPeriod, int blockLength) :
     deadline_(deadline), timeRemaining_(length), priority_(priority),
-    spawnTime_(timeSpawned), timeStarted_(), timeFinished_(), finished_(false), firstRun_(false) {}
+    spawnTime_(timeSpawned), timeStarted_(), timeFinished_(), finished_(false), firstRun_(false),
+    blockPeriod_(blockPeriod), lengthBlock_(blockLength) {}
 
 Task::~Task() {}
 
 bool Task::updateTask(int curTime) {
-    if(!getFirstRun()){
-        setFirstRun();
-        setTimeStarted(curTime);
-    }
 
-    setTimeRemaining(getTimeRemaining() - 1);
-    if(getTimeRemaining() == 0) {
-        setTimeFinished(curTime + 1);
-        setFinished(true);
-    }
+        if(getBlockLength() > 0) {
+            setBlockLength(getBlockLength() - 1);
+        } else {
 
-    //Priority update, probably call to strategy
 
-    return getFinished();
+            if(!getFirstRun()){
+                setFirstRun();
+                setTimeStarted(curTime);
+            }
+
+
+            setTimeRemaining(getTimeRemaining() - 1);
+
+            //Checks finished
+            if(getTimeRemaining() == 0) {
+                setTimeFinished(curTime + 1);
+                setFinished(true);
+            }
+
+
+            //Checks if time for block post update to avoid infinitely blocking
+            if(getBlockPeriod() != 0) {
+                if(!(getTimeRemaining() % getBlockPeriod())){
+                    setBlockLength(10);                 //block length set arbitrarily at 10
+                }
+            }
+
+
+        }
+//    //Priority update, probably call to strategy
+
+
+    return getBlockLength() > 0;        //will return true until updated post block
 }
 
 //Getters
@@ -61,6 +82,14 @@ bool Task::getFirstRun() {
     return firstRun_;
 }
 
+int Task::getBlockPeriod() {
+    return blockPeriod_;
+}
+
+int Task::getBlockLength() {
+    return lengthBlock_;
+}
+
 //Setters
 
 void Task::setDeadline(int deadline) {
@@ -93,4 +122,12 @@ void Task::setFinished(bool finished) {
 
 void Task::setFirstRun() {
     firstRun_ = true;
+}
+
+void Task::setBlockPeriod(int period) {
+    blockPeriod_ = period;
+}
+
+void Task::setBlockLength(int length) {
+    lengthBlock_ = length;
 }
