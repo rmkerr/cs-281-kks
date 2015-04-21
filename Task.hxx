@@ -6,7 +6,8 @@ class Task
 {
     public:
         Task();
-        Task(int length, int timeSpawned, int deadline, int priority = 0, int blockPeriod = 0, int blockLength = 0);
+        Task(int length, int timeSpawned, int deadline, int priority = 0, 
+             int blockPeriod = 0, int blockLength = 0);
         ~Task();
 
         /**

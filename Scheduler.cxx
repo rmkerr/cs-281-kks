@@ -44,7 +44,7 @@ void Scheduler::updateTasks(int timestep) {
                 logTask(a);
             }
 
-            return a->getFinished();
+            return a->getFinished() || a->getBlockLength();
         });
     }
 }

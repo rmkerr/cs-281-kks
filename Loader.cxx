@@ -8,15 +8,19 @@ Loader::Loader(std::list<Task*>* taskList, std::string fileName) :
                                     loadedTasks(taskList) {
     std::ifstream inFile;
     inFile.open(fileName);
+    inFile.ignore(512,'\n');
 
-    //start time, length, deadline, priority
-    unsigned long start, length, deadline, priority;
+    //start time, length, deadline, priority, block period, blcok length
+    unsigned long start, length, deadline, priority, blockPeriod, blockLength;
 
     while(inFile>>start) {
         inFile>>length;
         inFile>>deadline;
         inFile>>priority;
-        unloadedTasks.push_back(new Task(length, start,deadline,priority));
+        inFile>>blockPeriod;
+        inFile>>blockLength;
+        unloadedTasks.push_back(new Task(length, start,deadline,
+                                         priority,blockPeriod,blockLength));
     }
     unloadedTasks.sort(
         [](Task* a,Task* b){ return a->getSpawnTime() < b->getSpawnTime();});
