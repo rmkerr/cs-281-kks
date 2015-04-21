@@ -20,4 +20,41 @@ class Schedule
         std::list<Task*>* taskList;
 };
 
+
+class EDF_Schedule : public Schedule {
+
+    public:
+        EDF_Schedule(std::list<Task*>*);
+
+        virtual void reorder();
+
+    private:
+        std::list<Task*>* taskList;
+
+};
+
+class Priority_Schedule : public Schedule {
+
+    public:
+        Priority_Schedule(std::list<Task*>*);
+
+        virtual void reorder();
+
+    private:
+        std::list<Task*>* taskList;
+
+};
+
+class RR_Schedule : public Schedule {
+
+    public:
+        RR_Schedule(std::list<Task*>*);
+
+        virtual void reorder();
+
+    private:
+        std::list<Task*>* taskList;
+
+};
+
 #endif
