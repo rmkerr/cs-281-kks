@@ -6,6 +6,7 @@ Logger::Logger(std::string filename) : taskList(), fileName_(filename) {}
 
 
 Logger::~Logger() {
+std::for_each(taskList.begin(), taskList.end(), [&] (Task* ptr) {delete ptr;});
 }
 
 
