@@ -29,7 +29,8 @@ class Scheduler
 
         unsigned int maxSimult;//# of tasks to update simultaneously
         unsigned long time;
-        std::list<Task*> taskQueue;
+        std::list<Task*> runningTasks;
+        std::list<Task*> blockedTasks;
         Schedule* schedule;
         Logger logger;
 };
