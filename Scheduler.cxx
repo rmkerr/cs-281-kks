@@ -9,6 +9,10 @@ std::list<Task*>* Scheduler::getTaskQueue(){
     return &runningTasks;
 }
 
+std::list<Task*>* Scheduler::getBlockedQueue(){
+    return &blockedTasks;
+}
+
 //Set the schedule to be used
 void Scheduler::setSchedule(Schedule* sch) {
     schedule = sch;
@@ -18,13 +22,10 @@ void Scheduler::setSchedule(Schedule* sch) {
 void Scheduler::updateTasks(int timestep) {
     for(int j = 0; j < timestep;++j) {
         
-        //Unblock tasks finished with "IO"
-        blockedTasks.remove_if([&](Task* a){
-            if(a->getBlockLength() == 0){
-                runningTasks.push_back(a);
-                std::cout<<"Task unblocked"<<std::endl;
-            }
-            return a->getBlockLength() == 0;
+        //Decrement timers on blocked tasks
+        std::for_each(blockedTasks.begin(),blockedTasks.end(),[&](Task* a){
+            a->updateTask(time);
+            //std::cout<<a->getBlockRemaining():
         });
 
         //Reorder running tasks
@@ -33,16 +34,21 @@ void Scheduler::updateTasks(int timestep) {
         //Run the first maxSimult tasks
         std::list<Task*>::const_iterator task = runningTasks.begin();
         for(uint i = 0; i < maxSimult && i < runningTasks.size();++i){
-            if( (*task)->updateTask(time) ) { //Returns true if blocked
+            if( (*task)->updateTask(time) && !(*task)->getFinished()) { //Returns true if blocked
                 blockedTasks.push_back(*task);
                 std::cout<<"Task blocked"<<std::endl;
             }
             task++;
         }
 
-        //Decrement timers on blocked tasks
-        std::for_each(blockedTasks.begin(),blockedTasks.end(),[&](Task* a){
-            a->updateTask(time);
+        //Unblock tasks finished with "IO"
+        blockedTasks.remove_if([&](Task* a){
+            if(a->getBlockRemaining() <= 0){
+                runningTasks.push_back(a);
+                std::cout<<"Task unblocked"<<std::endl;
+                return true;
+            }
+            return false;
         });
 
         //Log and remove finished Tasks
@@ -53,7 +59,7 @@ void Scheduler::updateTasks(int timestep) {
                 std::cout<<"Task finished"<<std::endl;
             }
 
-            return a->getFinished() || a->getBlockLength();
+            return a->getFinished() || a->getBlockRemaining();
         });
     }
 }

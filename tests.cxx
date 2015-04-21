@@ -12,7 +12,8 @@ int main() {
     for(int i = 0;i < 15;i++) {
         scheduler.updateTasks(1);
         loader.update(i);
-        std::cout<<i<<":"<<scheduler.getTaskQueue()->size()<<std::endl;
+        std::cout<<i<<":"<<scheduler.getTaskQueue()->size();
+        std::cout<<":"<<scheduler.getBlockedQueue()->size()<<std::endl;
     }
 
 

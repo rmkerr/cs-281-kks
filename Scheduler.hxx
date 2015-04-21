@@ -13,6 +13,7 @@ class Scheduler
         ~Scheduler();
 
         std::list<Task*>* getTaskQueue();
+        std::list<Task*>* getBlockedQueue();
 
         //Set the schedule to be used
         void setSchedule(Schedule* sch);

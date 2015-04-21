@@ -40,7 +40,7 @@ bool Task::updateTask(int curTime) {
 //    //Priority update, probably call to strategy
 
 
-    return getBlockLength() > 0;        //will return true until updated post block
+    return getBlockRemaining() > 0;        //will return true until updated post block
 }
 
 //Getters
