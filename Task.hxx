@@ -27,6 +27,7 @@ class Task
         bool getFirstRun();
         int getBlockPeriod();
         int getBlockLength();
+        int getBlockRemaining();
 
 
         void setDeadline(int);
@@ -39,6 +40,7 @@ class Task
         void setFirstRun();
         void setBlockPeriod(int);
         void setBlockLength(int);
+        void setBlockRemaining(int);
 
     private:
         int deadline_;
@@ -51,6 +53,7 @@ class Task
         bool firstRun_;
         int blockPeriod_;
         int lengthBlock_;
+        int blockRemaining_;
 
 };
 

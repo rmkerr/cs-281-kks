@@ -7,22 +7,20 @@ Task::Task() : deadline_(), timeRemaining_(), priority_(), spawnTime_(),
 Task::Task(int length, int timeSpawned, int deadline, int priority, int blockPeriod, int blockLength) :
     deadline_(deadline), timeRemaining_(length), priority_(priority),
     spawnTime_(timeSpawned), timeStarted_(), timeFinished_(), finished_(false), firstRun_(false),
-    blockPeriod_(blockPeriod), lengthBlock_(blockLength) {}
+    blockPeriod_(blockPeriod), lengthBlock_(blockLength),blockRemaining_(0) {}
 
 Task::~Task() {}
 
 bool Task::updateTask(int curTime) {
 
-        if(getBlockLength() > 0) {
-            setBlockLength(getBlockLength() - 1);
-        } else {
-
+        if(getBlockRemaining() > 0) {
+            setBlockRemaining(getBlockRemaining() - 1);
+        }else {
 
             if(!getFirstRun()){
                 setFirstRun();
                 setTimeStarted(curTime);
             }
-
 
             setTimeRemaining(getTimeRemaining() - 1);
 
@@ -32,15 +30,12 @@ bool Task::updateTask(int curTime) {
                 setFinished(true);
             }
 
-
             //Checks if time for block post update to avoid infinitely blocking
             if(getBlockPeriod() != 0) {
                 if(!(getTimeRemaining() % getBlockPeriod())){
-                    setBlockLength(10);                 //block length set arbitrarily at 10
+                    setBlockRemaining(getBlockLength());                 //block length set arbitrarily at 10
                 }
             }
-
-
         }
 //    //Priority update, probably call to strategy
 
@@ -90,6 +85,10 @@ int Task::getBlockLength() {
     return lengthBlock_;
 }
 
+int Task::getBlockRemaining() {
+    return blockRemaining_;
+}
+
 //Setters
 
 void Task::setDeadline(int deadline) {
@@ -130,4 +129,8 @@ void Task::setBlockPeriod(int period) {
 
 void Task::setBlockLength(int length) {
     lengthBlock_ = length;
+}
+
+void Task::setBlockRemaining(int length) {
+    blockRemaining_ = length;
 }
