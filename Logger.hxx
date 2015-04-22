@@ -10,15 +10,20 @@
 class Logger
 {
     public:
-        Logger(std::string fileName = "output.txt");
+        Logger(std::string = "default");
         ~Logger();
         void addTask(Task* task);
         void readTasks();
+        void reportBlock(Task* task);
+        void reportUnblock(Task* task);
+        void reportFinish(Task* task);
 
     private:
         std::list<Task*> taskList;
-        std::string fileName_;
 
+        std::ofstream output;
+        std::string fileName_;
+        bool verbose;
 
 };
 

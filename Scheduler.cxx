@@ -21,7 +21,7 @@ void Scheduler::setSchedule(Schedule* sch) {
 //Increment time passed, unload+log finished tasks
 void Scheduler::updateTasks(int timestep) {
     for(int j = 0; j < timestep;++j) {
-        
+
         //Decrement timers on blocked tasks
         std::for_each(blockedTasks.begin(),blockedTasks.end(),[&](Task* a){
             a->updateTask(time);
@@ -35,7 +35,7 @@ void Scheduler::updateTasks(int timestep) {
         for(uint i = 0; i < maxSimult && i < runningTasks.size();++i){
             if( (*task)->updateTask(time) && !(*task)->getFinished()) { //Returns true if blocked
                 blockedTasks.push_back(*task);
-                std::cout<<"Task blocked"<<std::endl;
+                logger.reportBlock(*task);
             }
             task++;
         }
@@ -44,7 +44,7 @@ void Scheduler::updateTasks(int timestep) {
         blockedTasks.remove_if([&](Task* a){
             if(a->getBlockRemaining() <= 0){
                 runningTasks.push_back(a);
-                std::cout<<"Task unblocked"<<std::endl;
+                logger.reportUnblock(a);
                 return true;
             }
             return false;
@@ -55,7 +55,7 @@ void Scheduler::updateTasks(int timestep) {
             //adds Task to Logger queue if finished, then is removed from runningTasks.
             if(a->getFinished()){
                 logTask(a);
-                std::cout<<"Task finished"<<std::endl;
+                logger.reportFinish(a);
             }
 
             return a->getFinished() || a->getBlockRemaining();

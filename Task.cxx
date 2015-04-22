@@ -1,13 +1,16 @@
 #include <iostream>
 #include "Task.hxx"
+int Task::taskIdGen = 1;
 
 Task::Task() : deadline_(), timeRemaining_(), priority_(), spawnTime_(),
-    timeStarted_(), timeFinished_(), finished_(false), firstRun_(false), blockPeriod_(), lengthBlock_(0) {}
+    timeStarted_(), timeFinished_(), finished_(false), firstRun_(false), blockPeriod_(), lengthBlock_(0), taskID(taskIdGen++) {
+
+    }
 
 Task::Task(int length, int timeSpawned, int deadline, int priority, int blockPeriod, int blockLength) :
     deadline_(deadline), timeRemaining_(length), priority_(priority),
     spawnTime_(timeSpawned), timeStarted_(), timeFinished_(), finished_(false), firstRun_(false),
-    blockPeriod_(blockPeriod), lengthBlock_(blockLength),blockRemaining_(0), timeLastRun_(0) {}
+    blockPeriod_(blockPeriod), lengthBlock_(blockLength),blockRemaining_(0), timeLastRun_(0), taskID(taskIdGen++) {}
 
 Task::~Task() {}
 
@@ -44,6 +47,10 @@ bool Task::updateTask(int curTime) {
 }
 
 //Getters
+
+int Task::getID() {
+    return taskID;
+}
 
 int Task::getDeadline(){
     return deadline_;
@@ -94,6 +101,10 @@ int Task::getTimeLastRun() {
 }
 
 //Setters
+
+void Task::setID(int ID) {
+    taskID = ID;
+}
 
 void Task::setDeadline(int deadline) {
     deadline_ = deadline;

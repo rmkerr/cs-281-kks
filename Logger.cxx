@@ -2,7 +2,17 @@
 
 
 //Constructs an empty list of task pointers
-Logger::Logger(std::string filename) : taskList(), fileName_(filename) {}
+Logger::Logger(std::string file) : taskList(), fileName_(file) {
+    if(fileName_.compare("default") == 0) {
+        verbose = true;
+        output.open("default_output.txt");
+    } else {
+        output.open(fileName_);
+        verbose = false;
+    }
+
+
+}
 
 
 Logger::~Logger() {
@@ -21,15 +31,15 @@ void Logger::readTasks() {
     int sumTurnaroundTime = 0;
     int sumResponseTime = 0;
     int tasksFinished = 1; //will be set to 0 if one is not finished, depending on implementation may not be necessary
-    std::ofstream output;
-    output.open(fileName_);
+
 
     if(taskList.size() > 0){
         std::for_each(taskList.begin(), taskList.end(), [&](Task* ptr) {
             //moving through list, send info about individual to console
             //track average average throughput, response time, and finish before deadline info to array
 
-            output << "Task number " + std::to_string(count) + " finished ";
+
+            output << "Task number " + std::to_string(ptr->getID()) + " finished ";
 
             if(ptr->getDeadline() < ptr->getTimeFinished()) {
                 output << std::to_string(ptr->getTimeFinished() - ptr->getDeadline()) + " ticks after";
@@ -54,16 +64,17 @@ void Logger::readTasks() {
             output << "Response Time: " + std::to_string(responseTime) <<std::endl;
             output << std::endl;
 
-            //Give number and the tick at which it finished
-            std::cout << "Task number " + std::to_string(count) + " finished at "
-                + std::to_string(ptr->getTimeFinished()) << std::endl;
+            if(verbose){
+                //Give number and the tick at which it finished
+                std::cout << "Task number " + std::to_string(ptr->getID()) + " finished at "
+                    + std::to_string(ptr->getTimeFinished()) << std::endl;
 
-            std::cout << "The task took "  + std::to_string(turnaroundTime) + "ticks" << std::endl;
+                std::cout << "The task took "  + std::to_string(turnaroundTime) + "ticks" << std::endl;
 
-            //this section could have more info if we want, i.e. priority depending on our implementation of strategy
+                //this section could have more info if we want, i.e. priority depending on our implementation of strategy
 
-            std::cout << "" << std::endl;
-
+                std::cout << "" << std::endl;
+            }
 
 
 
@@ -83,8 +94,10 @@ void Logger::readTasks() {
         stats[1] = averageResponseTime;
         stats[2] = tasksFinished;
 
-        std::cout << "Average turnaround time: " + std::to_string(stats[0]) << std::endl;
-        std::cout << "Average response time: " + std::to_string(stats[1]) << std::endl;
+        if(verbose) {
+            std::cout << "Average turnaround time: " + std::to_string(stats[0]) << std::endl;
+            std::cout << "Average response time: " + std::to_string(stats[1]) << std::endl;
+        }
 
         output << "All Tasks:" << std::endl;
         output << "Average Response Time: " + std::to_string(stats[0]) << std::endl;
@@ -94,5 +107,29 @@ void Logger::readTasks() {
     }else {
         std::cout << "Task list is empty" << std::endl;
     }
+
+}
+
+void Logger::reportBlock(Task* task) {
+    if(verbose) {
+        std::cout << "Task " + std::to_string(task->getID()) + " blocked" << std::endl;
+    }
+    output << "Task " + std::to_string(task->getID()) + " blocked" << std::endl;
+
+}
+
+void Logger::reportUnblock(Task* task) {
+    if(verbose) {
+        std::cout << "Task " + std::to_string(task->getID()) + " unblocked" << std::endl;
+    }
+    output << "Task " + std::to_string(task->getID()) + " unblocked" << std::endl;
+
+}
+
+void Logger::reportFinish(Task* task) {
+    if(verbose) {
+        std::cout << "Task " + std::to_string(task->getID()) + " finished" << std::endl;
+    }
+    output << "Task " + std::to_string(task->getID()) + " finished" << std::endl;
 
 }

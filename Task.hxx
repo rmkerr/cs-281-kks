@@ -6,7 +6,7 @@ class Task
 {
     public:
         Task();
-        Task(int length, int timeSpawned, int deadline, int priority = 0, 
+        Task(int length, int timeSpawned, int deadline, int priority = 0,
              int blockPeriod = 0, int blockLength = 0);
         ~Task();
 
@@ -17,6 +17,7 @@ class Task
         bool updateTask(int curTime);
 
         //Accessors
+        int getID();
         int getDeadline();
         int getTimeRemaining();
         int getPriority();
@@ -30,7 +31,7 @@ class Task
         int getBlockRemaining();
         int getTimeLastRun();
 
-
+        void setID(int);
         void setDeadline(int);
         void setTimeRemaining(int);
         void setPriority(int);
@@ -45,6 +46,7 @@ class Task
         void setTimeLastRun(int);
 
     private:
+
         int deadline_;
         int timeRemaining_;
         int priority_;
@@ -57,6 +59,9 @@ class Task
         int lengthBlock_;
         int blockRemaining_;
         int timeLastRun_;
+        int taskID;
+
+        static int taskIdGen;
 
 };
 

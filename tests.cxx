@@ -7,8 +7,12 @@
 #include <boost/program_options/parsers.hpp>
 #include <boost/program_options/variables_map.hpp>
 
+
+
 namespace po = boost::program_options;
 po::variables_map vm;
+
+//int Task::taskIdGen = 1;
 
 int main(int argc, char **argv) {
 
