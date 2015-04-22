@@ -8,7 +8,7 @@
 class Scheduler
 {
     public:
-        Scheduler(unsigned int cores) : maxSimult(cores), time(0), logger() {};
+        Scheduler(unsigned int cores, bool verbose, std::string file) : maxSimult(cores), time(0), logger(file, verbose) {};
 
         ~Scheduler();
 

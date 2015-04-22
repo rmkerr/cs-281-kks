@@ -23,7 +23,8 @@ int main(int argc, char **argv) {
         ("strategy,s", po::value<std::string>(), "Scheduling strategy. Valid values are rr, edf, priority, sjf, and fifo")
         ("cores,c", po::value<int>(), "Number of parallel virtual \"tasks\" to run")
         ("input-file,i", po::value<std::string>(), "Input file with list of tasks")
-        ("output-file,o", po::value<std::string>(), "Output file.  Default: standert output")
+        ("output-file,o", po::value<std::string>(), "Output file.  Default: standard output")
+        ("verbose,v", "Verbose enables output to console")
         ;
     po::store(po::parse_command_line(argc, argv, desc), vm);
     po::notify(vm);
@@ -32,13 +33,27 @@ int main(int argc, char **argv) {
         std::cout << desc << "\n";
         return 0;
     }
+
+    std::string output;
+    if (vm.count ("output-file")) {
+        output = vm["output-file"].as<std::string>();
+    } else {
+        output = "default";
+    }
+
     int cores = 1;
     if (vm.count("cores")) {
         cores=vm["cores"].as <int> ();
     }
 
-    Scheduler scheduler(cores);
+    bool verbose = false;
+
+    if(vm.count("verbose")) {
+        verbose = true;
+    }
+
     Schedule* schedule = NULL;
+    Scheduler scheduler(cores, verbose, output);
 
     if (!vm.count ("strategy")) {
         schedule = new Schedule(scheduler.getTaskQueue());
@@ -65,6 +80,10 @@ int main(int argc, char **argv) {
         std::cerr<<"No input file provided. Terminating program...\n";
         return -1;
     }
+
+
+
+
     std::string inFile=vm["input-file"].as < std::string > ();
 
     scheduler.setSchedule(schedule);

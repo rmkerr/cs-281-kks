@@ -2,10 +2,13 @@
 
 
 //Constructs an empty list of task pointers
-Logger::Logger(std::string file) : taskList(), fileName_(file) {
+Logger::Logger(std::string file, bool verbose_) : taskList(), fileName_(file) {
     if(fileName_.compare("default") == 0) {
         verbose = true;
         output.open("default_output.txt");
+    } else if(verbose_ == true){
+        output.open(fileName_);
+        verbose = true;
     } else {
         output.open(fileName_);
         verbose = false;

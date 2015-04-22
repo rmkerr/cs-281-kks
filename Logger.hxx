@@ -10,7 +10,7 @@
 class Logger
 {
     public:
-        Logger(std::string = "default");
+        Logger(std::string, bool);
         ~Logger();
         void addTask(Task* task);
         void readTasks();

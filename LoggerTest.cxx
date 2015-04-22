@@ -3,7 +3,7 @@
 
 int main(int argc, char **argv) {
 
-Logger log("output_still_works.txt");
+Logger log("output.txt", true);
 Task* t1 = new Task(4, 0, 4);
 Task* t2 = new Task(5, 0, 9);
 t1->updateTask(0);
