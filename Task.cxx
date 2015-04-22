@@ -16,7 +16,7 @@ bool Task::updateTask(int curTime) {
         if(getBlockRemaining() > 0) {
             setBlockRemaining(getBlockRemaining() - 1);
         }else {
-
+            setTimeLastRun(curTime);
             if(!getFirstRun()){
                 setFirstRun();
                 setTimeStarted(curTime);
@@ -89,6 +89,10 @@ int Task::getBlockRemaining() {
     return blockRemaining_;
 }
 
+int Task::getTimeLastRun() {
+    return timeLastRun_;
+}
+
 //Setters
 
 void Task::setDeadline(int deadline) {
@@ -131,6 +135,10 @@ void Task::setBlockLength(int length) {
     lengthBlock_ = length;
 }
 
-void Task::setBlockRemaining(int length) {
-    blockRemaining_ = length;
+void Task::setBlockRemaining(int time) {
+    blockRemaining_ = time;
+}
+
+void Task::setTimeLastRun(int time) {
+    timeLastRun_ = time;
 }

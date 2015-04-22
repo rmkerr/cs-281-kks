@@ -16,7 +16,7 @@ class Schedule
 
         virtual void reorder();
 
-    private:
+    protected:
         std::list<Task*>* taskList;
 };
 
@@ -27,10 +27,6 @@ class EDF_Schedule : public Schedule {
         EDF_Schedule(std::list<Task*>*);
 
         virtual void reorder();
-
-    private:
-        std::list<Task*>* taskList;
-
 };
 
 class Priority_Schedule : public Schedule {
@@ -39,10 +35,6 @@ class Priority_Schedule : public Schedule {
         Priority_Schedule(std::list<Task*>*);
 
         virtual void reorder();
-
-    private:
-        std::list<Task*>* taskList;
-
 };
 
 class RR_Schedule : public Schedule {
@@ -51,10 +43,6 @@ class RR_Schedule : public Schedule {
         RR_Schedule(std::list<Task*>*);
 
         virtual void reorder();
-
-    private:
-        std::list<Task*>* taskList;
-
 };
 
 #endif

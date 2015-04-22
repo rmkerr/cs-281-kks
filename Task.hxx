@@ -28,6 +28,7 @@ class Task
         int getBlockPeriod();
         int getBlockLength();
         int getBlockRemaining();
+        int getTimeLastRun();
 
 
         void setDeadline(int);
@@ -41,6 +42,7 @@ class Task
         void setBlockPeriod(int);
         void setBlockLength(int);
         void setBlockRemaining(int);
+        void setTimeLastRun(int);
 
     private:
         int deadline_;
@@ -54,6 +56,7 @@ class Task
         int blockPeriod_;
         int lengthBlock_;
         int blockRemaining_;
+        int timeLastRun_;
 
 };
 

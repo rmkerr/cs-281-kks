@@ -4,7 +4,7 @@
 #include <iostream>
 
 int main() {
-    Scheduler scheduler(4);
+    Scheduler scheduler(1);
     Schedule fifo(scheduler.getTaskQueue());
     scheduler.setSchedule(&fifo);
 
