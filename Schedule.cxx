@@ -32,3 +32,12 @@ void RR_Schedule::reorder(){
         return a->getTimeLastRun() < b->getTimeLastRun();
     });
 }
+
+
+SJF_Schedule::SJF_Schedule(std::list<Task*>* tasks) : Schedule(tasks) {};
+
+void SJF_Schedule::reorder(){
+    taskList->sort([](Task* a, Task* b){
+        return a->getTimeRemaining() < b->getTimeRemaining();
+    });
+}

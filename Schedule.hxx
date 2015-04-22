@@ -45,4 +45,12 @@ class RR_Schedule : public Schedule {
         virtual void reorder();
 };
 
+class SJF_Schedule : public Schedule {
+
+    public:
+        SJF_Schedule(std::list<Task*>*);
+
+        virtual void reorder();
+};
+
 #endif
