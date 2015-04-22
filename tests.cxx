@@ -67,7 +67,7 @@ int main(int argc, char **argv) {
         scheduler.updateTasks(1);
         loader.update(i);
     }
-
+    scheduler.logOutput();
 
     return 0;
 }
