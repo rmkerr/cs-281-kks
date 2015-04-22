@@ -28,7 +28,7 @@ void Scheduler::updateTasks(int timestep) {
         });
 
         //Reorder running tasks
-        sortQueue();    
+        sortQueue();
 
         //Run the first maxSimult tasks
         std::list<Task*>::const_iterator task = runningTasks.begin();
@@ -71,4 +71,8 @@ void Scheduler::sortQueue() {
 
 void Scheduler::logTask(Task* task) {
     logger.addTask(task);
+}
+
+void Scheduler::logOutput(){
+    logger.readTasks();
 }

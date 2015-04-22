@@ -24,7 +24,8 @@ class Scheduler
         //Uses the Schedule strategy to order tasks
         void sortQueue();
 
-
+        //Print logged data
+        void logOutput();
     private:
         void logTask(Task* task);
 
