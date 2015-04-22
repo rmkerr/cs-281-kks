@@ -5,8 +5,8 @@
 
 int main() {
     Scheduler scheduler(1);
-    Schedule fifo(scheduler.getTaskQueue());
-    scheduler.setSchedule(&fifo);
+    RR_Schedule RR(scheduler.getTaskQueue());
+    scheduler.setSchedule(&RR);
 
     Loader loader(scheduler.getTaskQueue(),"tasks.data");
     for(int i = 0;i < 15;i++) {

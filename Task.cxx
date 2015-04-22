@@ -7,7 +7,7 @@ Task::Task() : deadline_(), timeRemaining_(), priority_(), spawnTime_(),
 Task::Task(int length, int timeSpawned, int deadline, int priority, int blockPeriod, int blockLength) :
     deadline_(deadline), timeRemaining_(length), priority_(priority),
     spawnTime_(timeSpawned), timeStarted_(), timeFinished_(), finished_(false), firstRun_(false),
-    blockPeriod_(blockPeriod), lengthBlock_(blockLength),blockRemaining_(0) {}
+    blockPeriod_(blockPeriod), lengthBlock_(blockLength),blockRemaining_(0), timeLastRun_(0) {}
 
 Task::~Task() {}
 

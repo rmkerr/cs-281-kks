@@ -25,7 +25,6 @@ void Scheduler::updateTasks(int timestep) {
         //Decrement timers on blocked tasks
         std::for_each(blockedTasks.begin(),blockedTasks.end(),[&](Task* a){
             a->updateTask(time);
-            //std::cout<<a->getBlockRemaining():
         });
 
         //Reorder running tasks
@@ -61,6 +60,7 @@ void Scheduler::updateTasks(int timestep) {
 
             return a->getFinished() || a->getBlockRemaining();
         });
+        ++time;
     }
 }
 

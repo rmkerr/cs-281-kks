@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <iostream>
 #include "Schedule.hxx"
 
 Schedule::Schedule(std::list<Task*>* tasks) : taskList(tasks) {};
