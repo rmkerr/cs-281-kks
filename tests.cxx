@@ -28,8 +28,11 @@ int main(int argc, char **argv) {
         std::cout << desc << "\n";
         return 0;
     }
+    int cores = 1;
+    if (vm.count("cores")) {
+        cores=vm["cores"].as <int> ();
+    }
 
-    int cores=vm["cores"].as <int> ();
     Scheduler scheduler(cores);
     Schedule* schedule = NULL;
 
