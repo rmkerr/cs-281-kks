@@ -57,9 +57,9 @@ void Logger::readTasks() {
             int turnaroundTime = ptr->getTimeFinished() - ptr->getSpawnTime();
             int responseTime = ptr->getTimeStarted() - ptr->getSpawnTime();
 
-            std::cout << "Turnaround Time: "  + std::to_string(turnaroundTime) << std::endl;
-            std::cout << "Response Time: " + std::to_string(responseTime) <<std::endl;
-            std::cout << std::endl;
+            std::cout << "\tTurnaround Time: "  + std::to_string(turnaroundTime) << std::endl;
+            std::cout << "\tResponse Time: " + std::to_string(responseTime) <<std::endl;
+            //std::cout << std::endl;
 
             sumTurnaroundTime += turnaroundTime;
             sumResponseTime += responseTime;
@@ -76,8 +76,8 @@ void Logger::readTasks() {
         stats[2] = tasksFinished;
 
         std::cout << "All Tasks:" << std::endl;
-        std::cout << "Average Response Time: " + std::to_string(stats[0]) << std::endl;
-        std::cout << "Average Turnaround Time: " + std::to_string(stats[1]) << std::endl;
+        std::cout << "\tAverage Response Time: " + std::to_string(stats[0]) << std::endl;
+        std::cout << "\tAverage Turnaround Time: " + std::to_string(stats[1]) << std::endl;
 
 
     }else {
@@ -90,22 +90,43 @@ void Logger::readTasks() {
  * Reports a task is blocking
  */
 void Logger::reportBlock(Task* task) {
-    std::cout << "Task " + std::to_string(task->getID()) + " blocked" << std::endl;
-
+    if(verbose){
+        std::cout << "\tTask " + std::to_string(task->getID()) + " blocked" << std::endl;
+    }
 }
 
 /**
  * Reports a task is unblocking
  */
 void Logger::reportUnblock(Task* task) {
-    std::cout << "Task " + std::to_string(task->getID()) + " unblocked" << std::endl;
-
+    if(verbose){
+        std::cout << "\tTask " + std::to_string(task->getID()) + " unblocked" << std::endl;
+    }
 }
 
 /**
  * Reports a task is finishing
  */
 void Logger::reportFinish(Task* task) {
-    std::cout << "Task " + std::to_string(task->getID()) + " finished" << std::endl;
+    if(verbose){
+        std::cout << "\tTask " + std::to_string(task->getID()) + " finished" << std::endl;
+    }
+}
 
+/**
+* If in verbose mode, writes out which tasks have run
+*/
+void Logger::reportRun(Task* task) {
+    if(verbose){
+        std::cout << "\tRunning task " << task->getID() << std::endl;
+    }
+}
+
+/**
+* If in verbose mode, writes out the current time
+*/
+void Logger::reportStep(int time) {
+    if(verbose){
+        std::cout<<"Step #"<<time<<std::endl;
+    }
 }

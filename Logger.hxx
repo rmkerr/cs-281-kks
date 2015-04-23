@@ -38,6 +38,16 @@ class Logger
         void readTasks();
 
         /**
+        * If in verbose mode, writes out which tasks have run
+        */
+        void reportRun(Task* task);
+
+        /**
+        * If in verbose mode, writes out the current time
+        */
+        void reportStep(int time);
+
+        /**
          * Reports a task blocking
          */
         void reportBlock(Task* task);

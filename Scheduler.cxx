@@ -34,7 +34,7 @@ void Scheduler::setSchedule(Schedule* sch) {
  */
 void Scheduler::updateTasks(int timestep) {
     for(int j = 0; j < timestep;++j) {
-
+        logger.reportStep(time);
         //Decrement timers on blocked tasks
         std::for_each(blockedTasks.begin(),blockedTasks.end(),[&](Task* a){
             a->updateTask(time);
@@ -46,6 +46,7 @@ void Scheduler::updateTasks(int timestep) {
         //Run the first maxSimult tasks
         std::list<Task*>::const_iterator task = runningTasks.begin();
         for(uint i = 0; i < maxSimult && i < runningTasks.size();++i){
+            logger.reportRun(*task);
             if( (*task)->updateTask(time) && !(*task)->getFinished()) { //Returns true if blocked
                 blockedTasks.push_back(*task);
                 logger.reportBlock(*task);
