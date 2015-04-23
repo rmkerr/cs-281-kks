@@ -40,8 +40,7 @@ void Logger::readTasks() {
             //moving through list, send info about individual to console
             //track average average throughput, response time, and finish before deadline info to array
 
-
-            std::cout << "Task number " + std::to_string(ptr->getID()) + " finished ";
+            std::cout << "\nTask number " + std::to_string(ptr->getID()) + " finished ";
 
             if(ptr->getDeadline() < ptr->getTimeFinished()) {
                 std::cout << std::to_string(ptr->getTimeFinished() - ptr->getDeadline()) + " ticks after";
