@@ -90,9 +90,6 @@ void Logger::readTasks() {
  * Reports a task is blocking
  */
 void Logger::reportBlock(Task* task) {
-    if(verbose) {
-        std::cout << "Task " + std::to_string(task->getID()) + " blocked" << std::endl;
-    }
     std::cout << "Task " + std::to_string(task->getID()) + " blocked" << std::endl;
 
 }
@@ -101,9 +98,6 @@ void Logger::reportBlock(Task* task) {
  * Reports a task is unblocking
  */
 void Logger::reportUnblock(Task* task) {
-    if(verbose) {
-        std::cout << "Task " + std::to_string(task->getID()) + " unblocked" << std::endl;
-    }
     std::cout << "Task " + std::to_string(task->getID()) + " unblocked" << std::endl;
 
 }
@@ -112,9 +106,6 @@ void Logger::reportUnblock(Task* task) {
  * Reports a task is finishing
  */
 void Logger::reportFinish(Task* task) {
-    if(verbose) {
-        std::cout << "Task " + std::to_string(task->getID()) + " finished" << std::endl;
-    }
     std::cout << "Task " + std::to_string(task->getID()) + " finished" << std::endl;
 
 }
