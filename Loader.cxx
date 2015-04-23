@@ -4,6 +4,9 @@
 
 #include "Loader.hxx"
 
+/**
+ * Constructor
+ */
 Loader::Loader(std::list<Task*>* taskList, std::string fileName) :
                                     loadedTasks(taskList) {
     std::ifstream inFile;
@@ -26,12 +29,20 @@ Loader::Loader(std::list<Task*>* taskList, std::string fileName) :
         [](Task* a,Task* b){ return a->getSpawnTime() < b->getSpawnTime();});
 }
 
+/**
+ * Destructor
+ * Cleans up any unloaded tasks
+ */
 Loader::~Loader() {
     std::for_each(unloadedTasks.begin(),unloadedTasks.end(),
         [](Task* a){delete a;});
 }
 
-void Loader::update(int time) {//We should change this interface, I'm just not sure how
+
+/**
+ * Iterates through unloaded tasks to check if any need to be loaded to active list
+ */
+void Loader::update(int time) {
     //std::cout<<unloadedTasks.size()<<std::endl;
     while(unloadedTasks.size() && (*unloadedTasks.begin())->getSpawnTime() <= time){        //non empty and first should spawn
         (*unloadedTasks.begin())->setTimeStarted(time);                                     //set task time started

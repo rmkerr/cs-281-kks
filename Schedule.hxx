@@ -4,8 +4,10 @@
 #include <list>
 #include "Task.hxx"
 /**
- * Abstract base class to allow definition of multiple policies
- * OR it could not be abstract and just function as FIFO
+ * Base class to allow definition of multiple policies
+ * functions as FIFO
+ * @author Richard Kerr
+ * @author Dillon Koval
  */
 
 class Schedule
@@ -20,7 +22,9 @@ class Schedule
         std::list<Task*>* taskList;
 };
 
-
+/**
+ * Definition for Earliest Deadline First policy
+ */
 class EDF_Schedule : public Schedule {
 
     public:
@@ -29,6 +33,9 @@ class EDF_Schedule : public Schedule {
         virtual void reorder();
 };
 
+/**
+ * Definition for Priority policy
+ */
 class Priority_Schedule : public Schedule {
 
     public:
@@ -37,6 +44,10 @@ class Priority_Schedule : public Schedule {
         virtual void reorder();
 };
 
+
+/**
+ * Definition for Round Robin scheduling policy
+ */
 class RR_Schedule : public Schedule {
 
     public:
@@ -45,6 +56,9 @@ class RR_Schedule : public Schedule {
         virtual void reorder();
 };
 
+/**
+ * Definition for Shortest Job First policy
+ */
 class SJF_Schedule : public Schedule {
 
     public:

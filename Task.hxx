@@ -1,7 +1,11 @@
 #ifndef TASK_H
 #define TASK_H
 
-
+/**
+ * Task class declaration
+ * @author Richard Kerr
+ * @author Dillon Koval
+ */
 class Task
 {
     public:

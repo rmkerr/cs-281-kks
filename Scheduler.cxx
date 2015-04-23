@@ -1,24 +1,37 @@
 #include "Scheduler.hxx"
 #include <algorithm>
 
+/**
+ * Destructor. Deletes any tasks left on active queue
+ */
 Scheduler::~Scheduler() {
     std::for_each(runningTasks.begin(),runningTasks.end(),[](Task*x){delete x;});
 }
 
+/**
+ * Returns task queue
+ */
 std::list<Task*>* Scheduler::getTaskQueue(){
     return &runningTasks;
 }
 
+/**
+ * Returns blocked task queue
+ */
 std::list<Task*>* Scheduler::getBlockedQueue(){
     return &blockedTasks;
 }
 
-//Set the schedule to be used
+/**
+ * Set the schedule to be used
+ */
 void Scheduler::setSchedule(Schedule* sch) {
     schedule = sch;
 }
 
-//Increment time passed, unload+log finished tasks
+/**
+ * Increment time passed, unload+log finished tasks
+ */
 void Scheduler::updateTasks(int timestep) {
     for(int j = 0; j < timestep;++j) {
 
@@ -64,15 +77,23 @@ void Scheduler::updateTasks(int timestep) {
     }
 }
 
-//Uses the Schedule strategy to order tasks
+/**
+ * Uses the Schedule strategy to order tasks
+ */
 void Scheduler::sortQueue() {
     schedule->reorder();
 }
 
+/**
+ * Sends a task to the Logger
+ */
 void Scheduler::logTask(Task* task) {
     logger.addTask(task);
 }
 
+/**
+ * Calls the logger to read all finished tasks
+ */
 void Scheduler::logOutput(){
     logger.readTasks();
 }

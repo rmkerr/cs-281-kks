@@ -1,7 +1,8 @@
 #include "Logger.hxx"
 
-
-//Constructs an empty list of task pointers
+/**
+ * Constructor
+ */
 Logger::Logger(std::string file, bool verbose_) : taskList(), fileName_(file) {
     if(fileName_.compare("default") == 0) {
         verbose = true;
@@ -14,20 +15,29 @@ Logger::Logger(std::string file, bool verbose_) : taskList(), fileName_(file) {
         verbose = false;
     }
 
-
 }
 
 
+/**
+ * Destructor
+ * Logger in charge of cleaning up finished tasks
+ */
 Logger::~Logger() {
 std::for_each(taskList.begin(), taskList.end(), [&] (Task* ptr) {delete ptr;});
 }
 
 
-//Places new task pointer
+/**
+ * Adds a finished task to the list
+ */
 void Logger::addTask(Task* task) {
     taskList.emplace_back(task);
 }
 
+/**
+ * Cycles through logged tasks and reads
+ * reporting turnaround time and response time
+ */
 void Logger::readTasks() {
     int stats[3]; //For average turnaround time[0] and response time[1] and if all finished before deadline [2]
     int count = 0;
@@ -56,10 +66,6 @@ void Logger::readTasks() {
 
 
 
-
-
-
-
             int turnaroundTime = ptr->getTimeFinished() - ptr->getSpawnTime();
             int responseTime = ptr->getTimeStarted() - ptr->getSpawnTime();
 
@@ -78,9 +84,6 @@ void Logger::readTasks() {
 
                 std::cout << "" << std::endl;
             }
-
-
-
 
 
             sumTurnaroundTime += turnaroundTime;
@@ -113,6 +116,9 @@ void Logger::readTasks() {
 
 }
 
+/**
+ * Reports a task is blocking
+ */
 void Logger::reportBlock(Task* task) {
     if(verbose) {
         std::cout << "Task " + std::to_string(task->getID()) + " blocked" << std::endl;
@@ -121,6 +127,9 @@ void Logger::reportBlock(Task* task) {
 
 }
 
+/**
+ * Reports a task is unblocking
+ */
 void Logger::reportUnblock(Task* task) {
     if(verbose) {
         std::cout << "Task " + std::to_string(task->getID()) + " unblocked" << std::endl;
@@ -129,6 +138,9 @@ void Logger::reportUnblock(Task* task) {
 
 }
 
+/**
+ * Reports a task is finishing
+ */
 void Logger::reportFinish(Task* task) {
     if(verbose) {
         std::cout << "Task " + std::to_string(task->getID()) + " finished" << std::endl;
