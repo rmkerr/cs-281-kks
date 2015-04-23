@@ -52,7 +52,7 @@ void Logger::readTasks() {
             //track average average throughput, response time, and finish before deadline info to array
 
 
-            output << "Task number " + std::to_string(ptr->getID()) + " finished ";
+            output << "\nTask number " + std::to_string(ptr->getID()) + " finished ";
 
             if(ptr->getDeadline() < ptr->getTimeFinished()) {
                 output << std::to_string(ptr->getTimeFinished() - ptr->getDeadline()) + " ticks after";
@@ -75,10 +75,20 @@ void Logger::readTasks() {
 
             if(verbose){
                 //Give number and the tick at which it finished
-                std::cout << "Task number " + std::to_string(ptr->getID()) + " finished at "
-                    + std::to_string(ptr->getTimeFinished()) << std::endl;
+                std::cout << "Task number " + std::to_string(ptr->getID()) + " finished ";
 
-                std::cout << "The task took "  + std::to_string(turnaroundTime) + "ticks" << std::endl;
+            if(ptr->getDeadline() < ptr->getTimeFinished()) {
+                std::cout << std::to_string(ptr->getTimeFinished() - ptr->getDeadline()) + " ticks after";
+            } else if (ptr->getDeadline() == ptr->getTimeFinished()){
+                std::cout << "at";
+            } else {
+                std::cout << std::to_string(ptr->getDeadline() - ptr->getTimeFinished()) + " ticks before";
+            }
+
+            std::cout << " its deadline of " + std::to_string(ptr->getDeadline()) + " ." << std::endl;
+
+
+                std::cout << "The task took "  + std::to_string(turnaroundTime) + " ticks" << std::endl;
 
                 //this section could have more info if we want, i.e. priority depending on our implementation of strategy
 
