@@ -1,4 +1,4 @@
-Steps to build:
+Steps to build:			Assumes boost is installed
 
 1. command line: cmake .
 2. command line: make
