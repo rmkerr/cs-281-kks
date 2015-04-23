@@ -34,7 +34,9 @@ void Scheduler::setSchedule(Schedule* sch) {
  */
 void Scheduler::updateTasks(int timestep) {
     for(int j = 0; j < timestep;++j) {
+        //Outputs time if in verbose mode
         logger.reportStep(time);
+
         //Decrement timers on blocked tasks
         std::for_each(blockedTasks.begin(),blockedTasks.end(),[&](Task* a){
             a->updateTask(time);
@@ -45,13 +47,12 @@ void Scheduler::updateTasks(int timestep) {
 
         //Run the first maxSimult tasks
         std::list<Task*>::const_iterator task = runningTasks.begin();
-        for(uint i = 0; i < maxSimult && i < runningTasks.size();++i){
+        for(uint i = 0; i < maxSimult && i < runningTasks.size();++i,++task){
             logger.reportRun(*task);
             if( (*task)->updateTask(time) && !(*task)->getFinished()) { //Returns true if blocked
                 blockedTasks.push_back(*task);
                 logger.reportBlock(*task);
             }
-            task++;
         }
 
         //Unblock tasks finished with "IO"
@@ -59,20 +60,19 @@ void Scheduler::updateTasks(int timestep) {
             if(a->getBlockRemaining() <= 0){
                 runningTasks.push_back(a);
                 logger.reportUnblock(a);
-                return true;
             }
-            return false;
+            return a->getBlockRemaining() <= 0;
         });
 
         //Log and remove finished Tasks
         runningTasks.remove_if([&](Task* a){
             //adds Task to Logger queue if finished, then is removed from runningTasks.
-            if(a->getFinished()){
+            if(a->getFinished()||time >= a->getDeadline()){
                 logTask(a);
                 logger.reportFinish(a);
             }
 
-            return a->getFinished() || a->getBlockRemaining();
+            return a->getFinished() || a->getBlockRemaining() || time >= a->getDeadline();
         });
         ++time;
     }

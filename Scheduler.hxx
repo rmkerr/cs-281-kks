@@ -59,7 +59,7 @@ class Scheduler
         void logTask(Task* task);
 
         unsigned int maxSimult;//# of tasks to update simultaneously
-        unsigned long time;
+        int time;
         std::list<Task*> runningTasks;
         std::list<Task*> blockedTasks;
         Schedule* schedule;

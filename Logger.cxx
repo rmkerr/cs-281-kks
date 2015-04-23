@@ -36,32 +36,38 @@ void Logger::readTasks() {
 
 
     if(taskList.size() > 0){
+        taskList.sort([](Task* a, Task* b) {
+            return a->getID() < b->getID();
+        });
         std::for_each(taskList.begin(), taskList.end(), [&](Task* ptr) {
             //moving through list, send info about individual to console
             //track average average throughput, response time, and finish before deadline info to array
 
-            std::cout << "\nTask number " + std::to_string(ptr->getID()) + " finished ";
-
-            if(ptr->getDeadline() < ptr->getTimeFinished()) {
-                std::cout << std::to_string(ptr->getTimeFinished() - ptr->getDeadline()) + " ticks after";
+            std::cout << "\nTask number " << ptr->getID();
+            if ( ptr->getTimeRemaining() != 0 ) {
+                std::cout << " stopped with " << ptr->getTimeRemaining() << " ticks remaining at";
+            } else if(ptr->getDeadline() < ptr->getTimeFinished()) {
+                std::cout << " finished " << ptr->getTimeFinished() - ptr->getDeadline() << " ticks after";
             } else if (ptr->getDeadline() == ptr->getTimeFinished()){
-                std::cout << "at";
+                std::cout << " finished at";
             } else {
-                std::cout << std::to_string(ptr->getDeadline() - ptr->getTimeFinished()) + " ticks before";
+                std::cout << " finished " << ptr->getDeadline() - ptr->getTimeFinished() << " ticks before";
             }
 
-            std::cout << " its deadline of " + std::to_string(ptr->getDeadline()) + " ." << std::endl;
+            std::cout << " its deadline of " << ptr->getDeadline() << "." << std::endl;
 
 
 
             int turnaroundTime = ptr->getTimeFinished() - ptr->getSpawnTime();
             int responseTime = ptr->getTimeStarted() - ptr->getSpawnTime();
 
-            std::cout << "\tTurnaround Time: "  + std::to_string(turnaroundTime) << std::endl;
-            std::cout << "\tResponse Time: " + std::to_string(responseTime) <<std::endl;
-            //std::cout << std::endl;
-
-            sumTurnaroundTime += turnaroundTime;
+            if ( ptr->getTimeRemaining() == 0 ) {
+                std::cout << "\tTurnaround Time: " << turnaroundTime << std::endl;
+                sumTurnaroundTime += turnaroundTime;
+            } else {
+                std::cout << "\tTurnaround Time: Failed to meet deadline."<<std::endl;
+            }
+            std::cout << "\tResponse Time: " << responseTime << std::endl;
             sumResponseTime += responseTime;
 
             count++;
