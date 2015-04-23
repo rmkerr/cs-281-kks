@@ -89,7 +89,7 @@ int main(int argc, char **argv) {
     scheduler.setSchedule(schedule);
 
     Loader loader(scheduler.getTaskQueue(),inFile);
-    for(int i = 0;scheduler.getTaskQueue()->size()||i<5;i++) {
+    for(int i = 0;scheduler.getTaskQueue()->size()||scheduler.getBlockedQueue()->size()||i<5;i++) {
         scheduler.updateTasks(1);
         loader.update(i);
     }
