@@ -3,7 +3,7 @@
 /**
  * Constructor
  */
-Logger::Logger(bool verbose_) : taskList(), verbose(verbose_) {
+Logger::Logger(bool verbose_) : taskList(), verbose(verbose_), deadlineMissed(0){
 }
 
 
@@ -84,7 +84,7 @@ void Logger::readTasks() {
         std::cout << "All Tasks:" << std::endl;
         std::cout << "\tAverage Response Time: " + std::to_string(stats[0]) << std::endl;
         std::cout << "\tAverage Turnaround Time: " + std::to_string(stats[1]) << std::endl;
-
+        std::cout << "\tDeadlines Missed: " + std::to_string(getDeadlineMissed()) << std::endl;
 
     }else {
         std::cout << "Task list is empty" << std::endl;
@@ -135,4 +135,21 @@ void Logger::reportStep(int time) {
     if(verbose){
         std::cout<<"Step #"<<time<<std::endl;
     }
+}
+
+/**
+ * Reports missed deadline
+ */
+void Logger::reportMissedDeadline(Task* task) {
+    if(verbose){
+        std::cout << "Task " + std::to_string(task->getID()) + " missed its deadline." << std::endl;
+    }
+    deadlineMissed++;
+}
+
+/**
+ * Returns number of missed deadlines
+ */
+int Logger::getDeadlineMissed() {
+    return deadlineMissed;
 }

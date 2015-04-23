@@ -69,7 +69,11 @@ void Scheduler::updateTasks(int timestep) {
             //adds Task to Logger queue if finished, then is removed from runningTasks.
             if(a->getFinished()||time >= a->getDeadline()){
                 logTask(a);
-                logger.reportFinish(a);
+                if(a->getFinished()) {
+                    logger.reportFinish(a);
+                } else {
+                    logger.reportMissedDeadline(a);
+                }
             }
 
             return a->getFinished() || a->getBlockRemaining() || time >= a->getDeadline();

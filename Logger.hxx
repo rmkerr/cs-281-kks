@@ -62,12 +62,23 @@ class Logger
          */
         void reportFinish(Task* task);
 
+        /**
+         * Reports a task missing deadline
+         */
+        void reportMissedDeadline(Task* task);
+
+        /**
+         * Returns number of missed deadlines
+         */
+        int getDeadlineMissed();
+
     private:
         std::list<Task*> taskList;
 
         std::ofstream output;
         std::string fileName_;
         bool verbose;
+        int deadlineMissed;
 
 };
 
