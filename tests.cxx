@@ -2,6 +2,7 @@
 #include "Loader.hxx"
 #include <list>
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <boost/program_options/option.hpp>
 #include <boost/program_options/parsers.hpp>
@@ -34,11 +35,9 @@ int main(int argc, char **argv) {
         return 0;
     }
 
-    std::string output;
+    std::ofstream outFile;
     if (vm.count ("output-file")) {
-        output = vm["output-file"].as<std::string>();
-    } else {
-        output = "default";
+        freopen(vm["output-file"].as<std::string>().c_str(),"w",stdout);
     }
 
     int cores = 1;
@@ -53,7 +52,7 @@ int main(int argc, char **argv) {
     }
 
     Schedule* schedule = NULL;
-    Scheduler scheduler(cores, verbose, output);
+    Scheduler scheduler(cores, verbose);
 
     if (!vm.count ("strategy")) {
         schedule = new Schedule(scheduler.getTaskQueue());

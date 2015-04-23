@@ -20,7 +20,7 @@ class Logger
          * @param output file, verbose boolean
          * Opens output file if applicable
          */
-        Logger(std::string, bool);
+        Logger(bool);
 
         /**
          * Destructor

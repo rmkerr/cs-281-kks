@@ -19,7 +19,7 @@ class Scheduler
         /**
          * Scheduler constructor
          */
-        Scheduler(unsigned int cores, bool verbose, std::string file) : maxSimult(cores), time(0), logger(file, verbose) {};
+        Scheduler(unsigned int cores, bool verbose) : maxSimult(cores), time(0), logger(verbose) {};
 
         /**
          * Destructor
