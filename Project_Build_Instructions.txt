@@ -1,0 +1,26 @@
+Steps to build:			Assumes boost is installed
+
+1. command line: cmake .
+2. command line: make
+3. Running the program: ./tests
+	a. Required: -input-file (-i) (file)
+	b. -cores -c (number of cores to simulate)
+	c. -strategy -s (default: fifo, rr, edf, sjf, priority)
+	d. -output-file -o (file)
+	e. -verbose -v
+
+Example:
+FIFO:
+./TaskSim -i tasks.data -o fifo_out.txt -v -s fifo
+
+Round Robin:
+./TaskSim -i tasks.data -o rr_out.txt -v -s rr
+
+Earliest Deadline First:
+./TaskSim -i tasks.data -o edf_out.txt -v -s edf
+
+Shortest Job First:
+./TaskSim -i tasks.data -o sjf_out.txt -v -s sjf
+
+Priority:
+./TaskSim -i tasks.data -o priority_out.txt -v -s priority
