@@ -82,8 +82,8 @@ void Logger::readTasks() {
         stats[2] = tasksFinished;
 
         std::cout << "All Tasks:" << std::endl;
-        std::cout << "\tAverage Response Time: " + std::to_string(stats[0]) << std::endl;
-        std::cout << "\tAverage Turnaround Time: " + std::to_string(stats[1]) << std::endl;
+        std::cout << "\tAverage Response Time: " + std::to_string(stats[1]) << std::endl;
+        std::cout << "\tAverage Turnaround Time: " + std::to_string(stats[0]) << std::endl;
         std::cout << "\tDeadlines Missed: " + std::to_string(getDeadlineMissed()) << std::endl;
 
     }else {
